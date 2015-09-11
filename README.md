@@ -6,14 +6,16 @@ _2015-09-11_
 
 ## 监听音量键时间
 
+
+
 添加监听事件
 
 	[[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
         
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(volumeChanged:)
-                                                     name:@"AVSystemController_SystemVolumeDidChangeNotification"
-                                                   object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(volumeChanged:)
+                                                 name:@"AVSystemController_SystemVolumeDidChangeNotification"
+                                               object:nil];
                                                    
 移除监听事件
 
