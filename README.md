@@ -2,6 +2,83 @@
 日常遇到的iOS方面的小tips，分享给大家
 
 
+
+_2016-02-19_
+
+## iOS8 跳转设置
+
+跳转设置
+
+    if (UIApplicationOpenSettingsURLString != NULL) {
+        NSURL *appSettings = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+        [[UIApplication sharedApplication] openURL:appSettings];
+    }
+
+跳转到WIFI 
+
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"prefs:root=WIFI"]];  
+
+
+
+_2016-01-11_
+
+## iOS9 https网络
+
+### 方法1
+
+强制将NSAllowsArbitraryLoads属性设置为YES，并添加到你应用的plist中
+
+    <key>NSAppTransportSecurity</key>
+    <dict>
+    <key>NSAllowsArbitraryLoads</key>
+    <true/>
+    </dict>
+
+### 方法2
+
+建立白名单并添加到你的app的plsit中
+
+    <key>NSAppTransportSecurity</key>
+    <dict>
+        <key>NSExceptionDomains</key>
+        <dict>
+            <key>baidu.com</key>
+            <dict>
+                <key>NSIncludesSubdomains</key>
+                <true/>
+                <key>NSThirdPartyExceptionAllowsInsecureHTTPLoads</key>
+                <true/>
+                <key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
+                <false/>
+            </dict>
+        </dict>
+    </dict>
+
+### 方法3
+
+依赖TLS建立白名单的另一种配置方法
+
+    <key>NSAppTransportSecurity</key>
+    <dict>
+        <dict>
+        <key>NSAllowsArbitraryLoads</key>
+        <true/>
+        </dict>
+        <key>NSExceptionDomains</key>
+        <dict>
+            <key>geetest.com</key>
+            <dict>
+                <key>NSIncludesSubdomains</key>
+                <true/>
+                <key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
+                <true/>
+                <key>NSTemporaryExceptionMinimumTLSVersion</key>
+                <string>TLSv1.1</string>
+            </dict>
+        </dict>
+    </dict>
+
+
 _2016-01-07_
 
 ## UITableView 顶部空白的处理方法
